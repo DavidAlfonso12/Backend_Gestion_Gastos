@@ -11,7 +11,8 @@ const GastosSchema = mongoose.Schema({
   },
   valor:{
     type: Number,
-    require: true
+    require: true,
+  
   } 
 });
 
