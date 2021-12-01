@@ -1,5 +1,6 @@
 const Ingreso = require('../models/Ingreso');
 const Gastos = require('../models/gastos');
+const Servicios = require('../models/Servicios');
 
 exports.crearIngreso = async (req, res) => {
   
@@ -51,6 +52,18 @@ exports.obtenerGastos = async (req, res) =>{
     const gastos = await Gastos.find();
     res.json(gastos);
     
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un error');
+  }
+
+}
+
+exports.obtenerServicios = async (req, res) =>{
+
+  try {
+    const servicios = await Servicios.find();
+    res.json(servicios);
   } catch (error) {
     console.log(error);
     res.status(500).send('Hubo un error');

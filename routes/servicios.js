@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const ingresoController = require('../controllers/ingresoController');
 
-router.post('/', ingresoController.crearIngreso);
-router.get('/', ingresoController.obtenerIngresos);
+router.get('/', ingresoController.obtenerServicios);
 
-module.exports = router;  
+module.exports = router;

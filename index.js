@@ -7,7 +7,9 @@ conectarDB();
 
 app.use(express.json());
 
-app.use(require('./routes/ingreso'));
+app.use('/api/ingresos',require('./routes/ingreso'));
+app.use('/api/gastos',require('./routes/gastos'));
+app.use('/api/servicios',require('./routes/servicios'));
 
 
 app.listen(4000, () =>{

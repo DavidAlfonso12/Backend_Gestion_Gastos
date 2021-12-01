@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ingresoController = require('../controllers/ingresoController');
 
-router.post('/', ingresoController.crearIngreso);
-router.get('/', ingresoController.obtenerIngresos);
+router.post('/', ingresoController.crearGasto);
+router.get('/', ingresoController.obtenerGastos);
 
-module.exports = router;  
+module.exports = router;
