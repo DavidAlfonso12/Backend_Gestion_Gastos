@@ -78,33 +78,33 @@ exports.obtenerConsulta = async (req, res) =>{
   try {
     console.log(req.body.fecha);
     let fechaInicio = req.body.fecha.slice(0,7);
-    console.log(fechaInicio);
-    let fechaFin = '2021-12'
-    sumarMes = () => {
-      if (fechaInicio[5] == 1, fechaInicio[6] == 2){
-        x = fechaInicio.slice(fechaInicio.lastIndexOf('1'))
-        y = x.replace(x, "01")
-        console.log(y);
-      }
-    }
-    sumarMes()
+    let ano = parseInt(req.body.fecha.slice(0,4));
+    let mes = parseInt(req.body.fecha.slice(5,7));
+    let fechaFin = sumarMes(ano,mes)
     let ConsultaG = await Gastos.find({ $and: [{fecha: {$gte:fechaInicio}}, {fecha: {$lt:fechaFin}}]  });
-    // console.log(ConsultaG);
-    //let ConsultaI = await Ingreso.findByFecha(req.body.fecha)
-
+    let ConsultaI = await Ingreso.find({ $and: [{fecha: {$gte:fechaInicio}}, {fecha: {$lt:fechaFin}}]  });
+    let datos = {
+      "Gastos":ConsultaG,
+      "ingresos":ConsultaI
+    }
     if(!Gastos){
       res.status(404).json({ msg: 'No existe gasto por esta fecha'})
     }
     if(!Ingreso){
       res.status(404).json({ msg: 'No existe ingreso por esta fecha'})
     }
-
-    res.json(ConsultaG)
-
-
+    res.json(datos)
   } catch (error) {
     console.log(error);
     res.status(500).send('Hubo un error');
   }
-
+}
+sumarMes = (ano1, mes1) =>{
+  mes1 = mes1 + 1;
+  if (mes1 > 12) {
+    mes1 = 01;
+    ano1 = ano1 +1;
+  }
+  let fechaFinal = ano1 + "-" + mes1;
+  return fechaFinal;
 }
